@@ -41,6 +41,31 @@ end
 
 
 
+post '/contacts' do
+  @client_email = params[:client_email]
+  @client_message = params[:client_message]
+
+  cc = {:client_email => "You did't enter your email",
+        :client_message => "You did't enter your message"}
+
+  @error = cc.select{|key,_| params[key] == ""}.values.join(", ")
+
+  unless @error == ""
+    return erb :contacts
+  end
+
+ 
+  
+end
+
+
+
+
+
+
+
+
+
 configure do
   enable :sessions
 end
