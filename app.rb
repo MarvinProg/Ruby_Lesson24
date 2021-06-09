@@ -54,7 +54,20 @@ post '/contacts' do
     return erb :contacts
   end
 
- 
+   f = File.open './public/contacts.txt', 'a'
+  f.write "client email: #{@client_email}\nmessage:\n#{@client_message}\n"
+  f.close
+
+  smtp_info =
+    begin
+      YAML.load_file("./smtpinfo.yml")
+    rescue
+      @error = "Error: Could not find SMTP info. Please contact the site administrator."
+      return erb :contacts
+    end
+
+
+  
   
 end
 
